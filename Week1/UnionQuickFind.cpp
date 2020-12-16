@@ -10,6 +10,7 @@ public:
 		for(int i = 0; i < m_size; i++)
 		{
 			m_id[i] = i;
+			m_sz[i] = 1;
 		}
 	}
 
@@ -26,7 +27,19 @@ public:
 		int rootA = Root(a);
 		int rootB = Root(b);
 
-		m_id[rootA] = rootB;
+		if(rootA == rootB)
+			return;
+
+		if(m_sz[rootA] <= m_sz[rootB])
+		{
+			m_id[rootA] = rootB;
+			m_sz[rootA] += m_sz[rootB];
+		}
+		else
+		{
+			m_id[rootB] = rootA;
+			m_sz[rootB] += m_sz[rootA];
+		}
 	}
 	
 	void Print()
@@ -45,7 +58,8 @@ public:
 
 	
 private:
-	int* m_id;
+	int *m_id;
+	int *m_sz;
 	int m_size;
 };
 	
