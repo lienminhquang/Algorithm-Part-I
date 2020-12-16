@@ -17,8 +17,10 @@ public:
 	int Root(int a)
 	{
 		while(m_id[a] != a)
+		{
+			m_id[a] = m_id[m_id[a]];
 			a = m_id[a];
-
+		}
 		return a;
 	}
 	
