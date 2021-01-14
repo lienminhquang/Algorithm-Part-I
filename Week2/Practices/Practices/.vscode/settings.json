@@ -1,6 +1,7 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "e:\\Hoc_tap\\Algorithm\\Algorithms-part1\\Week1\\algs4.jar"
+        "e:\\Hoc_tap\\Algorithm\\Algorithms-part1\\Week1\\algs4.jar",
+        "d:\\LMQ\\Algorithm-Part-I\\Algorithm-Part-I\\Week1\\algs4.jar"
     ]
 }

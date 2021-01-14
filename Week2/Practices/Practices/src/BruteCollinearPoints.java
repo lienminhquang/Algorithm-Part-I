@@ -13,7 +13,18 @@ public class BruteCollinearPoints {
     private boolean[] taked;
 
     public BruteCollinearPoints(Point[] points) {
-        array = points;
+        if(points == null) throw new IllegalArgumentException();
+        array = points.clone();
+
+        for (int i = 0; i < array.length; i++) {
+            if(array[i] == null) throw new IllegalArgumentException();
+        }
+        Arrays.sort(array);
+        for (int i = 0; i < array.length; i++) {
+            if(array[i] == null) throw new IllegalArgumentException();
+            if(i > 0 && array[i].compareTo(array[i-1]) == 0) throw new IllegalArgumentException();
+        }
+        
         segments = new LineSegment[array.length];
         taked = new boolean[array.length];
         BruteForce();
@@ -67,7 +78,7 @@ public class BruteCollinearPoints {
     }
 
     public LineSegment[] segments() {
-        return segments;
+        return segments.clone();
     }
 
     public static void main(String[] args) {

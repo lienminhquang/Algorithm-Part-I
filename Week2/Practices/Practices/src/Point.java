@@ -3,8 +3,19 @@ import java.util.Comparator;
 
 import edu.princeton.cs.algs4.Draw;
 import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdOut;
 
 public class Point implements Comparable<Point> {
+
+
+    public static void main(String[] args) {
+        Point p = new Point(2,4);
+        Point q = new Point(2,1);
+        Point r = new Point(2,6);
+        int a = p.slopeOrder().compare(q, r);
+        StdOut.print(a+"");
+    }
+
     public Point(int x, int y) // constructs the point (x, y)
     {
         this.x = x ;
@@ -49,13 +60,18 @@ public class Point implements Comparable<Point> {
 
         @Override
         public int compare(Point o1, Point o2) {
-            double delta = slopeTo(o1) - slopeTo(o2);
-            if(delta == 0.0) return 0;
+            double s1 = slopeTo(o1);
+            double s2 = slopeTo(o2);
+            if(s1 == s2) 
+                return 0;
+            Double delta = slopeTo(o1) - slopeTo(o2);
+   
             return delta < 0.0 ? -1 : 1;
         }
 
     }
 
+    //public double slope = 0;
     private int x;
     private int y;
 }
