@@ -11,6 +11,23 @@ public class MaxPQ<Key extends Comparable<Key>> {
         _keys = (Key[])new Comparable[_maxSize+1];
         _size = 0;
     }
+
+    public MaxPQ(Key[] keys)
+    {
+        _maxSize = keys.length;
+        _keys = (Key[])new Comparable[_maxSize+1];
+        for(int i = 1; i < _keys.length; i++)
+        {
+            _keys[i] = keys[i-1];
+        }
+        _size = keys.length;
+
+        for(int i = _size / 2; i >= 1; i--)
+        {
+            sink(i);
+        }
+    }
+
     public boolean isEmpty() {
         return _size == 0;
     }
@@ -71,19 +88,45 @@ public class MaxPQ<Key extends Comparable<Key>> {
             }
         }
     }
+    public void verify()
+    {
+        for(int i = _size / 2; i >= 1; i--)
+        {
+            if(less(i, 2 * i))
+            {
+                StdOut.println("Not a max-oriented heap");
+                return;
+            }
+            else if(((2 * i + 1) <= _size) && less(i, 2 * i + 1))
+            {
+                StdOut.println("Not a max-oriented heap");
+                return;
+            }
+        }
+        StdOut.println("Max-oriented heap");
+    }
 
     public static void main(String[] args) {
-        MaxPQ<Integer> test = new MaxPQ<>(10);
-        Random rd = new Random();
-        for(int i = 0; i < 10; i++)
+        for(int j = 0; j < 100; j++)
         {
-            test.insert(rd.nextInt(10));
+            
+            Random rd = new Random();
+            Integer[] keys=new Integer[10];
+            for(int i = 0; i < 10; i++)
+            {
+                //test.insert(rd.nextInt(10));
+                keys[i] = rd.nextInt(10);
+            }
+            Utilities.printArr(keys);
+            MaxPQ<Integer> test = new MaxPQ<>(keys);
+            Utilities.printArr(test._keys);
+            StdOut.println(test.size());
+            test.verify();
+            // while(!test.isEmpty())
+            // {
+            //     StdOut.print(test.delMax() + "-");
+            // }
         }
-        Utilities.printArr(test._keys);
-        StdOut.println(test.size());
-        while(!test.isEmpty())
-        {
-            StdOut.print(test.delMax() + "-");
-        }
+        
     }
 }
