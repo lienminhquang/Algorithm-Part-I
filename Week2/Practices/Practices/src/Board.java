@@ -1,5 +1,4 @@
 import java.util.LinkedList;
-import java.util.Random;
 
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
@@ -30,18 +29,20 @@ public class Board {
 
     // string representation of thlengthrd
     public String toString() {
-        String str = _tiles.length + "\n";
+        StringBuilder sd = new StringBuilder();
+        sd.append(_tiles.length + "\n");
         for (int i = 0; i < _tiles.length; i++) {
             for (int j = 0; j < _tiles[i].length; j++) {
                 if (_tiles[i][j] == _tiles.length * _tiles.length - 1) {
-                    str += "0 ";
+                    sd.append("0 ");
                 } else {
-                    str += (_tiles[i][j] + 1) + " ";
+                    sd.append(_tiles[i][j] + 1);
+                    sd.append(" ");
                 }
             }
-            str += "\n";
+            sd.append("\n");
         }
-        return str;
+        return sd.toString();
     }
 
     // board dimension n
@@ -95,12 +96,19 @@ public class Board {
 
     // is this board the goal board?
     public boolean isGoal() {
-        return hamming() == 0;
+        return manhattan() == 0;
     }
 
     // does this board equal y?
     public boolean equals(Object y) {
+        if(y == null){
+            return false;
+        }
+        if(getClass() != y.getClass()){
+            return false;
+        }
         var a = (Board) y;
+
         if (a.dimension() != dimension()) {
             return false;
         }
@@ -124,7 +132,7 @@ public class Board {
         int[][] a = new int[_tiles.length][_tiles.length];
         for (int i = 0; i < _tiles.length; i++) {
             for (int j = 0; j < _tiles[i].length; j++) {
-                if (_tiles[i][j] == _tiles.length * _tiles.length - 1) {
+                if (_tiles[i][j] == (_tiles.length * _tiles.length) - 1) {
                     a[i][j] = 0;
                 } else {
                     a[i][j] = _tiles[i][j] + 1;
@@ -136,7 +144,6 @@ public class Board {
 
     // all neighboring boards
     public Iterable<Board> neighbors() {
-
         LinkedList<Board> rs = new LinkedList<>();
         if (_emptyi - 1 >= 0) {
             int[][] tmp = cloneTile();
@@ -155,7 +162,7 @@ public class Board {
         }
         if (_emptyj + 1 < _tiles.length) {
             int[][] tmp = cloneTile();
-            swap(tmp, _emptyi, _emptyj, _emptyi, _emptyj + 1);
+            swap(tmp, _emptyi, _emptyj + 1, _emptyi, _emptyj);
             rs.add(new Board(tmp));
         }
 
@@ -164,20 +171,26 @@ public class Board {
 
     // a board that is obtained by exchanging any pair of tiles
     public Board twin() {
-        Random rd = new Random();
-        int[][] tmp = cloneTile();
-        int i1 = rd.nextInt(_tiles.length), j1 = rd.nextInt(_tiles.length), i2 = rd.nextInt(_tiles.length), j2 = rd.nextInt(_tiles.length);
-        while(i1 == _emptyi && j1 == _emptyj)
-        {
-            i1 = rd.nextInt(_tiles.length);
-            j1 = rd.nextInt(_tiles.length);
-        }
-        while((i2 == _emptyi && j2 == _emptyj) || (i2 == i1 && j2 == j1))
-        {
-            i2 = rd.nextInt(_tiles.length);
-            j2 = rd.nextInt(_tiles.length);
-        }
-        swap(tmp, i1, j1, i2, j2);
+        // Random rd = new Random();
+        // int[][] tmp = cloneTile();
+        // int i1 = rd.nextInt(_tiles.length), j1 = rd.nextInt(_tiles.length), i2 = rd.nextInt(_tiles.length), j2 = rd.nextInt(_tiles.length);
+        // while(i1 == _emptyi && j1 == _emptyj)
+        // {
+        //     i1 = rd.nextInt(_tiles.length);
+        //     j1 = rd.nextInt(_tiles.length);
+        // }
+        // while((i2 == _emptyi && j2 == _emptyj) || (i2 == i1 && j2 == j1))
+        // {
+        //     i2 = rd.nextInt(_tiles.length);
+        //     j2 = rd.nextInt(_tiles.length);
+        // }
+        //swap(tmp, i1, j1, i2, j2);
+
+         int i1 = 0;
+         while(i1 == _emptyi) {i1++;}
+         int[][] tmp = cloneTile();
+         swap(tmp, i1, 0, i1, 1);
+
         return new Board(tmp);
     }
 

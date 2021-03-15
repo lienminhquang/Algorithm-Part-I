@@ -1,3 +1,5 @@
+//import java.util.LinkedList;
+
 import java.util.LinkedList;
 
 import edu.princeton.cs.algs4.In;
@@ -5,20 +7,30 @@ import edu.princeton.cs.algs4.MinPQ;
 import edu.princeton.cs.algs4.StdOut;
 
 public class Solver {
+    // private Queue<Board> solution = new Queue<>();
     private LinkedList<Board> solution = new LinkedList<>();
 
-    private class Node implements Comparable<Node> {
-        public Node(Board board) {
+    private class Node implements Comparable<Node>{
+        public Node(Board board, Node parent) {
             _board = board;
+            _parent = parent;
+            if(parent != null) {
+                _moves = parent._moves + 1;
+            }
+            else {
+                _moves = 0;
+            }
         }
 
         @Override
         public int compareTo(Solver.Node o) {
-            return _board.manhattan() - o._board.manhattan();
+            int priorityDiff = (_board.manhattan() + this._moves) - (o._board.manhattan() + o._moves);
+            return  priorityDiff == 0 ? _board.manhattan() - o._board.manhattan() : priorityDiff;
         }
 
         Board _board;
-        Board _parent;
+        Node _parent;
+        int _moves;
     }
 
     // find a solution to the initial board (using the A* algorithm)
@@ -27,56 +39,35 @@ public class Solver {
             throw new IllegalArgumentException();
         }
 
-        solution.add(initial);
+        //solution.enqueue(initial);
         
         if (initial.isGoal()) {
+            solution.addFirst(initial);
             return;
         }
         Board tInitial = initial.twin();
-        StdOut.print(tInitial);
        
         MinPQ<Node> minPQ = new MinPQ<>();
-        MinPQ<Node> tminPQ = new MinPQ<>();
-
-        for (Board board : initial.neighbors()) {
-            Node node = new Node(board);
-            node._parent = initial;
-            minPQ.insert(node);
-        }
-        for (Board board : tInitial.neighbors()) {
-            Node node = new Node(board);
-            node._parent = tInitial;
-            tminPQ.insert(node);
-        }
-        while (true) {
+        minPQ.insert(new Node(initial, null));
+        minPQ.insert(new Node(tInitial, null));
+        
+        while (!minPQ.min()._board.isGoal()) {
             Node node = minPQ.delMin();
-            Node tnode = tminPQ.delMin();
-            //StdOut.println(node._board);
-
-            if(tnode._board.isGoal()){
-                solution = null;
-                return;
-            }
-            solution.add(node._board);
-            if (node._board.isGoal()) {
-                return;
-            }
-
             for (Board neigh : node._board.neighbors()) {
-                if (!neigh.equals(node._parent)) {
-                    Node newNode = new Node(neigh);
-                    newNode._parent = node._board;
+                if (node._parent == null || (node._parent != null && !neigh.equals(node._parent._board))) {
+                    Node newNode = new Node(neigh, node);
                     minPQ.insert(newNode);
                 }
             }
-            for (Board neigh : tnode._board.neighbors()) {
-                if (!neigh.equals(tnode._parent)) {
-                    Node newNode = new Node(neigh);
-                    newNode._parent = tnode._board;
-                    tminPQ.insert(newNode);
-                }
-            }
+            //StdOut.println(node._board);
         }
+        Node current = minPQ.min();
+        while(current._parent != null){
+            solution.addFirst(current._board);
+            current = current._parent;
+        }
+        solution.addFirst(current._board);
+        if(!current._board.equals(initial)) solution = null;
     }
 
     // is the initial board solvable? (see below)
@@ -119,6 +110,7 @@ public class Solver {
             for (Board board : solver.solution())
                 StdOut.println(board);
         }
+       
     }
 
 }
