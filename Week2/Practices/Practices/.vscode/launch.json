@@ -6,12 +6,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch Java Program",
-            "request": "launch",
-            "mainClass": ""
-        },
-        {
-            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -21,14 +15,14 @@
             "name": "Launch App",
             "request": "launch",
             "mainClass": "App",
-            "projectName": "Practices_8c33055f"
+            "projectName": "Practices_5765c238"
         },
         {
             "type": "java",
             "name": "Launch Board",
             "request": "launch",
             "mainClass": "Board",
-            "projectName": "Practices_8c33055f",
+            "projectName": "Practices_5765c238",
             "args": "puzzle04.txt"
         },
         {
@@ -36,57 +30,57 @@
             "name": "Launch BruteCollinearPoints",
             "request": "launch",
             "mainClass": "BruteCollinearPoints",
-            "projectName": "Practices_8c33055f"
+            "projectName": "Practices_5765c238"
         },
         {
             "type": "java",
             "name": "Launch FastCollinearPoints",
             "request": "launch",
             "mainClass": "FastCollinearPoints",
-            "projectName": "Practices_8c33055f"
+            "projectName": "Practices_5765c238"
         },
         {
             "type": "java",
             "name": "Launch LinkedList",
             "request": "launch",
             "mainClass": "LinkedList",
-            "projectName": "Practices_8c33055f"
+            "projectName": "Practices_5765c238"
         },
         {
             "type": "java",
             "name": "Launch MaxPQ",
             "request": "launch",
             "mainClass": "MaxPQ",
-            "projectName": "Practices_8c33055f"
+            "projectName": "Practices_5765c238"
         },
         {
             "type": "java",
             "name": "Launch Point",
             "request": "launch",
             "mainClass": "Point",
-            "projectName": "Practices_8c33055f"
+            "projectName": "Practices_5765c238"
         },
         {
             "type": "java",
             "name": "Launch QuickSort",
             "request": "launch",
             "mainClass": "QuickSort",
-            "projectName": "Practices_8c33055f"
-        },
-        {
-            "type": "java",
-            "name": "Launch Stack",
-            "request": "launch",
-            "mainClass": "Stack",
-            "projectName": "Practices_8c33055f"
+            "projectName": "Practices_5765c238"
         },
         {
             "type": "java",
             "name": "Launch Solver",
             "request": "launch",
             "mainClass": "Solver",
-            "projectName": "Practices_8c33055f",
+            "projectName": "Practices_5765c238",
             "args": "puzzle04.txt"
+        },
+        {
+            "type": "java",
+            "name": "Launch Stack",
+            "request": "launch",
+            "mainClass": "Stack",
+            "projectName": "Practices_5765c238"
         }
     ]
 }
